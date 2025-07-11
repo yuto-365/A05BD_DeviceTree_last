@@ -1,0 +1,125 @@
+# =====================================
+# Type Definitions
+# =====================================
+type hal_bluetooth_mediatek, domain;
+type hal_bluetooth_mediatek_exec, exec_type, vendor_file_type, file_type;
+type hal_light_mediatek, domain;
+type hal_light_mediatek_exec, exec_type, vendor_file_type, file_type;
+type vendor_exec, exec_type, file_type, vendor_file_type;
+type hal_exec, exec_type, file_type;
+type vendor_init_rc, file_type;
+type vendor_ueventd_rc, file_type;
+type vendor_fstab_rc, file_type;
+type vendor_meta_init_rc, file_type;
+# =====================================
+# Domain Initialization
+# =====================================
+
+# =====================================
+# Allow Rules
+# =====================================
+allow audioserver init:binder call;
+allow bootanim device:chr_file map;
+allow bootanim device:chr_file { getattr ioctl open read write };
+allow bootanim init:binder call;
+allow bootanim proc:file { ioctl open read };
+allow bootanim servicemanager:binder { call transfer };
+allow bootanim surfaceflinger:binder call;
+allow bootanim vendor_file:file execute;
+allow bootanim vendor_file:file { read open getattr map };
+allow cameraserver init:binder { call transfer };
+allow fsck block_device:blk_file { ioctl open read write };
+allow hal_audio_server hal_audio_hwservice:hwservice_manager add;
+allow hal_bluetooth_mediatek pmsg_device:chr_file { open read write ioctl };
+allow hal_camera_default binder_device:chr_file { read write open ioctl getattr };
+allow hal_camera_default system_file:file { execute };
+allow hal_camera_default vendor_file:dir { search };
+allow hal_camera_default vendor_file:file { read execute open getattr };
+allow hal_camera_default vndbinder_device:chr_file { read write open ioctl getattr };
+allow hal_graphics_composer_default proc:file ioctl;
+allow hal_light_default sysfs:file { read write };
+allow hal_light_mediatek pmsg_device:chr_file { open read write ioctl };
+allow hal_sensors_default self:capability *;
+allow hal_sensors_default system_file:file *;
+allow hal_sensors_default vendor_file:file *;
+allow healthd sysfs:file open;
+allow healthd sysfs:file read;
+allow healthd sysfs:file { getattr open };
+allow hwservicemanager init:binder call;
+allow hwservicemanager runtime_event_log_tags_file:file map;
+allow init block_device:blk_file write;
+allow init bootanim:fd use;
+allow init default_android_hwservice:hwservice_manager { add find };
+allow init device:chr_file { ioctl open read write };
+allow init graphics_device:chr_file { ioctl write };
+allow init hal_audio_hwservice:hwservice_manager add;
+allow init hal_audio_hwservice:hwservice_manager find;
+allow init hal_camera_hwservice:hwservice_manager { add find };
+allow init hal_cas_hwservice:hwservice_manager add;
+allow init hal_configstore_ISurfaceFlingerConfigs:hwservice_manager add;
+allow init hal_drm_hwservice:hwservice_manager { add find };
+allow init hal_exec:file { execute getattr map };
+allow init hal_exec:file { execute_no_trans };
+allow init hal_exec:file { open read };
+allow init hal_gatekeeper_hwservice:hwservice_manager { add find };
+allow init hal_graphics_allocator_hwservice:hwservice_manager { add find };
+allow init hal_graphics_composer_hwservice:hwservice_manager { add find };
+allow init hal_graphics_mapper_hwservice:hwservice_manager find;
+allow init hal_health_hwservice:hwservice_manager add;
+allow init hal_keymaster_hwservice:hwservice_manager { add find };
+allow init hal_memtrack_hwservice:hwservice_manager { add find };
+allow init hal_omx_hwservice:hwservice_manager add;
+allow init hal_power_hwservice:hwservice_manager add;
+allow init hal_sensors_hwservice:hwservice_manager find;
+allow init hal_thermal_hwservice:hwservice_manager { add find };
+allow init hal_usb_hwservice:hwservice_manager add;
+allow init hal_wifi_hwservice:hwservice_manager add;
+allow init hidl_allocator_hwservice:hwservice_manager find;
+allow init hidl_base_hwservice:hwservice_manager add;
+allow init hidl_memory_hwservice:hwservice_manager find;
+allow init hwservicemanager:binder { call transfer };
+allow init mnt_vendor_file:dir mounton;
+allow init proc:file ioctl;
+allow init proc:file { getattr open read };
+allow init self:netlink_kobject_uevent_socket read;
+allow init surfaceflinger:binder call;
+allow init sysfs:file setattr;
+allow init sysfs:file { open read };
+allow init system_server:binder call;
+allow init tmpfs:lnk_file create;
+allow init vendor_exec:file { execute execute_no_trans };
+allow init vendor_exec:file { read open map getattr };
+allow init vendor_file:file execute_no_trans;
+allow init vendor_file:file { execute };
+allow init vndbinder_device:chr_file read;
+allow netd kernel:system module_request;
+allow netd self:capability sys_module;
+allow surfaceflinger device:chr_file ioctl;
+allow surfaceflinger init:binder call;
+allow surfaceflinger proc:file { ioctl open read };
+allow surfaceflinger vendor_file:file { execute getattr map open read };
+allow system_server init:binder { call transfer };
+allow system_server init:file write;
+allow system_server sysfs:file { getattr open read };
+allow system_server vendor_default_prop:file { getattr map open };
+allow ueventd vendor_ueventd_rc:file { getattr open read };
+allow vendor_init dhcp_data_file:dir setattr;
+allow vendor_init proc:file { write getattr open read ioctl map };
+allow vendor_init system_data_file:dir setattr;
+allow vendor_init tmpfs:dir { create add_name write }; # sdcard, cd-rom
+allow vendor_init unlabeled:dir { setattr getattr add_name write relabelfrom };
+allow zygote ashmem_device:chr_file { read write execute open getattr map };
+allow zygote binder_device:chr_file { read write ioctl getattr };
+allow zygote dalvikcache_data_file:dir { search };
+allow zygote dalvikcache_data_file:file { read write open map getattr };
+allow zygote init:unix_stream_socket connectto;
+allow zygote servicemanager:binder { call transfer };
+allow zygote system_server:binder { call transfer };
+allow zygote tmpfs:dir { search };
+allow zygote tmpfs:file { read write execute open getattr };
+allow zygote vendor_file:file { execute getattr map open read };
+allow zygote vndbinder_device:chr_file { read write ioctl getattr };
+allow zygote zygote_socket:dir { search write add_name remove_name };
+allow zygote zygote_socket:sock_file { create getattr setattr unlink write read };
+init_daemon_domain(hal_bluetooth_mediatek)
+init_daemon_domain(hal_light_mediatek)
